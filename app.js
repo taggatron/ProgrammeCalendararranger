@@ -172,12 +172,12 @@ const TERMS = [
         tue1:  { id: 'l16a', topic: 'Digestive System',      group: 'physiology', notes: '' },
         tue2:  { id: 'l16b', topic: 'Nutrient Absorption',   group: 'physiology', notes: '' },
         weds:  { id: 'l16w', topic: 'NEA Session',           group: 'nea',  notes: '' },
-        fri1:  { id: 'l16c', topic: 'Innate Immunity',       group: 'health', notes: '' },
-        fri2:  { id: 'l16d', topic: 'Adaptive Immunity',     group: 'health', notes: '' },
+        fri1:  { id: 'l16c', topic: 'Health & Disease',      group: 'health', notes: '' },
+        fri2:  { id: 'l16d', topic: 'Health & Disease',      group: 'health', notes: '' },
       },
       {
         weekNum: 17, month: 'January', dateLabel: '27th',
-        tue1:  { id: 'l17a', topic: 'Vaccination',           group: 'health', notes: '' },
+        tue1:  { id: 'l17a', topic: 'Health & Disease',      group: 'health', notes: '' },
         tue2:  { id: 'l17b', topic: 'Pathogens',             group: 'microbes', notes: '' },
         weds:  { id: 'l17w', topic: 'NEA Session',           group: 'nea',  notes: '' },
         fri1:  { id: 'l17c', topic: 'Microbial Growth',      group: 'microbes', notes: '' },
@@ -189,7 +189,7 @@ const TERMS = [
         tue2:  { id: 'l18b', topic: 'Nerve Impulses',        group: 'physiology', notes: '' },
         weds:  { id: 'l18w', topic: 'NEA Session',           group: 'nea',  notes: '' },
         fri1:  { id: 'l18c', topic: 'Endocrine System',      group: 'physiology', notes: '' },
-        fri2:  { id: 'l18d', topic: 'Blood Glucose & Diabetes', group: 'health', notes: '' },
+        fri2:  { id: 'l18d', topic: 'Health & Disease',      group: 'health', notes: '' },
       },
       {
         weekNum: null, month: 'February', dateLabel: '10th',
@@ -221,10 +221,10 @@ const TERMS = [
       },
       {
         weekNum: 22, month: 'March', dateLabel: '10th',
-        tue1:  { id: 'l22a', topic: 'Non-Communicable Diseases', group: 'health', notes: '' },
-        tue2:  { id: 'l22b', topic: 'CVD Risk Factors',      group: 'health', notes: '' },
+        tue1:  { id: 'l22a', topic: 'Health & Disease',      group: 'health', notes: '' },
+        tue2:  { id: 'l22b', topic: 'Health & Disease',      group: 'health', notes: '' },
         weds:  { id: 'l22w', topic: 'NEA Session',           group: 'nea',  notes: '' },
-        fri1:  { id: 'l22c', topic: 'Genetic Diseases',      group: 'health', notes: '' },
+        fri1:  { id: 'l22c', topic: 'Health & Disease',      group: 'health', notes: '' },
         fri2:  { id: 'l22d', topic: 'Biotechnology',         group: 'genetics', notes: '' },
       },
       {
@@ -735,6 +735,94 @@ function exportCSV() {
   showToast('Calendar exported as CSV');
 }
 
+// ─── Export Word ───────────────────────────────────────────
+function exportWord() {
+  const header = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+  <head><meta charset='utf-8'><title>Programme Calendar</title>
+  <style>
+    @page WordSection1 {
+      size: 841.9pt 595.3pt; /* A4 Landscape */
+      mso-page-orientation: landscape;
+      margin: 36.0pt 36.0pt 36.0pt 36.0pt;
+    }
+    div.WordSection1 { page: WordSection1; }
+    body { font-family: 'Inter', sans-serif; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 10pt; }
+    th, td { border: 1px solid #999; padding: 6px; text-align: left; vertical-align: top; }
+    th { background-color: #1a2030; color: #fff; font-weight: bold; }
+    h2 { font-family: 'Outfit', sans-serif; font-size: 14pt; color: #333; margin-top: 20px; margin-bottom: 10px; }
+    .holiday-row td { background-color: #f0f0f0; text-align: center; font-weight: bold; color: #333; }
+    .nea-cell { background-color: #eef3ff; }
+  </style>
+  </head><body><div class='WordSection1'>
+  <h1>AAQ Human Biology | Programme Calendar 2026-27</h1>`;
+
+  let body = '';
+  state.terms.forEach(term => {
+    body += `<h2>${term.label}</h2>`;
+    body += `<table>
+      <thead>
+        <tr>
+          <th width="5%">Week</th>
+          <th width="8%">Month</th>
+          <th width="8%">Date</th>
+          <th width="15.8%">Tuesday 1</th>
+          <th width="15.8%">Tuesday 2</th>
+          <th width="15.8%">Weds NEA</th>
+          <th width="15.8%">Friday 1</th>
+          <th width="15.8%">Friday 2</th>
+        </tr>
+      </thead>
+      <tbody>`;
+
+    term.weeks.forEach(week => {
+      if (week.isHoliday) {
+        body += `<tr class="holiday-row">
+          <td></td>
+          <td>${week.month}</td>
+          <td>${week.dateLabel}</td>
+          <td colspan="5">${week.holidayLabel}</td>
+        </tr>`;
+      } else {
+        body += `<tr>
+          <td>${week.weekNum || ''}</td>
+          <td>${week.month}</td>
+          <td>${week.dateLabel}</td>`;
+        
+        SLOT_KEYS.forEach(slot => {
+          const lesson = week[slot];
+          if (!lesson) {
+            body += `<td></td>`;
+          } else {
+            const group = groupMap[lesson.group];
+            const groupName = group ? group.label : lesson.group;
+            const cls = slot === 'weds' ? 'nea-cell' : '';
+            body += `<td class="${cls}">
+              <strong>${lesson.topic}</strong><br/>
+              <span style="font-size: 8pt; color: #666;">${groupName}</span>
+              ${lesson.notes ? `<br/><i style="font-size: 8pt;">${lesson.notes}</i>` : ''}
+            </td>`;
+          }
+        });
+        body += `</tr>`;
+      }
+    });
+    body += `</tbody></table>`;
+  });
+
+  const footer = `</div></body></html>`;
+  const html = header + body + footer;
+
+  const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'AAQ_HumanBiology_Calendar_2026-27.doc';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Calendar exported as Word document');
+}
+
 // ─── Reset ─────────────────────────────────────────────────
 function resetCalendar() {
   if (!confirm('Reset the calendar to the original order? This cannot be undone.')) return;
@@ -759,6 +847,7 @@ function init() {
 
   document.getElementById('btn-theme').addEventListener('click', toggleTheme);
   document.getElementById('btn-export').addEventListener('click', exportCSV);
+  document.getElementById('btn-export-word').addEventListener('click', exportWord);
   document.getElementById('btn-reset').addEventListener('click', resetCalendar);
   document.getElementById('btn-print').addEventListener('click', () => window.print());
 

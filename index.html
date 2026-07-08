@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AAQ Human Biology | Programme Calendar Arranger 2026–27</title>
+  <meta name="description" content="Interactive drag-and-drop lesson planner for AAQ Human Biology 2026–27. Rearrange topics by week across all three terms." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="app-header" role="banner">
+    <div class="header-inner">
+      <div class="header-brand">
+        <div class="brand-icon" aria-hidden="true">🧬</div>
+        <div class="brand-text">
+          <h1 class="brand-title">Human Biology</h1>
+          <span class="brand-sub">AAQ Programme Calendar Arranger · 2026–27</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-reset" class="btn btn-ghost" title="Reset to original order" aria-label="Reset calendar to original order">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-5.31"/></svg>
+          Reset
+        </button>
+        <button id="btn-export" class="btn btn-primary" title="Export schedule as CSV" aria-label="Export calendar schedule as CSV">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV
+        </button>
+        <button id="btn-print" class="btn btn-secondary" title="Print calendar" aria-label="Print calendar">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Instructions banner -->
+  <div class="instructions-bar" role="note" aria-label="Usage instructions">
+    <div class="instructions-inner">
+      <span class="instr-chip">
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg>
+        Drag cells to rearrange lessons
+      </span>
+      <span class="instr-chip">
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Click any cell to edit its content
+      </span>
+      <span class="instr-chip">
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v14a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Auto-saved to your browser
+      </span>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend-bar" role="complementary" aria-label="Topic colour legend">
+    <div class="legend-inner">
+      <span class="legend-label">Topic Groups:</span>
+      <div class="legend-items" id="legend-items" role="list"></div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <main id="main-content" class="main-content">
+    <div id="calendar-container" class="calendar-container" role="region" aria-label="Lesson calendar">
+      <!-- Calendar rendered by JS -->
+    </div>
+  </main>
+
+  <!-- Edit Modal -->
+  <div id="edit-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modal-title" class="modal-title">Edit Lesson</h2>
+        <button id="modal-close" class="modal-close-btn" aria-label="Close edit dialog">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="edit-topic" class="form-label">Topic Name</label>
+        <input id="edit-topic" type="text" class="form-input" placeholder="Enter topic name…" />
+        <label for="edit-group" class="form-label">Topic Group</label>
+        <select id="edit-group" class="form-select"></select>
+        <label for="edit-notes" class="form-label">Notes <span class="optional">(optional)</span></label>
+        <textarea id="edit-notes" class="form-textarea" rows="3" placeholder="Add any teaching notes…"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button id="modal-cancel" class="btn btn-ghost">Cancel</button>
+        <button id="modal-save" class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notifications -->
+  <div id="toast-container" class="toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

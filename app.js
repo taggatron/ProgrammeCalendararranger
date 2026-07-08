@@ -302,6 +302,28 @@ const SLOT_LABELS = ['Tuesday', 'Tuesday', 'Weds NEA', 'Friday', 'Friday'];
 const STORAGE_KEY = 'aaq-bio-calendar-v3';
 let state = { terms: null };
 let editTarget = null; // { termIdx, weekIdx, slot }
+let draggedSource = null; // { termIdx, weekIdx, slot }
+
+// ─── Theme ─────────────────────────────────────────────────
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  if (isDark) {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('aaq-bio-theme', 'light');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('aaq-bio-theme', 'dark');
+  }
+}
+
+function loadTheme() {
+  const storedTheme = localStorage.getItem('aaq-bio-theme');
+  if (storedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+}
 
 // ─── Persistence ───────────────────────────────────────────
 function loadState() {
@@ -368,6 +390,58 @@ function buildLegend() {
 function buildLessonCell(lesson, termIdx, weekIdx, slot) {
   const td = el('td', 'lesson-cell');
 
+  td.dataset.termIdx  = termIdx;
+  td.dataset.weekIdx  = weekIdx;
+  td.dataset.slot     = slot;
+
+  if (lesson) {
+    td.setAttribute('draggable', 'true');
+    td.addEventListener('dragstart', (e) => {
+      draggedSource = { termIdx, weekIdx, slot };
+      setTimeout(() => td.classList.add('dragging'), 0);
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', lesson.topic);
+    });
+    td.addEventListener('dragend', () => {
+      td.classList.remove('dragging');
+      document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+      draggedSource = null;
+    });
+  }
+
+  td.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  });
+
+  td.addEventListener('dragenter', (e) => {
+    e.preventDefault();
+    if (draggedSource && (draggedSource.termIdx !== termIdx || draggedSource.weekIdx !== weekIdx || draggedSource.slot !== slot)) {
+      td.classList.add('drag-over');
+    }
+  });
+
+  td.addEventListener('dragleave', () => {
+    td.classList.remove('drag-over');
+  });
+
+  td.addEventListener('drop', (e) => {
+    e.preventDefault();
+    td.classList.remove('drag-over');
+    if (!draggedSource) return;
+    if (draggedSource.termIdx === termIdx && draggedSource.weekIdx === weekIdx && draggedSource.slot === slot) return;
+
+    const src = draggedSource;
+    const temp = state.terms[termIdx].weeks[weekIdx][slot];
+    state.terms[termIdx].weeks[weekIdx][slot] = state.terms[src.termIdx].weeks[src.weekIdx][src.slot];
+    state.terms[src.termIdx].weeks[src.weekIdx][src.slot] = temp;
+
+    draggedSource = null;
+    saveState();
+    renderCalendar();
+    showToast('Lesson moved successfully');
+  });
+
   if (!lesson) {
     td.classList.add('lesson-cell--empty');
     return td;
@@ -375,9 +449,6 @@ function buildLessonCell(lesson, termIdx, weekIdx, slot) {
 
   const group = groupMap[lesson.group] || groupMap['revision'];
   td.style.setProperty('--topic-color', group.color);
-  td.dataset.termIdx  = termIdx;
-  td.dataset.weekIdx  = weekIdx;
-  td.dataset.slot     = slot;
 
   // Coloured left-border accent is applied via CSS class
   td.classList.add('lesson-cell--filled');
@@ -680,11 +751,13 @@ document.addEventListener('keydown', (e) => {
 
 // ─── Init ──────────────────────────────────────────────────
 function init() {
+  loadTheme();
   loadState();
   buildLegend();
   buildGroupSelect();
   renderCalendar();
 
+  document.getElementById('btn-theme').addEventListener('click', toggleTheme);
   document.getElementById('btn-export').addEventListener('click', exportCSV);
   document.getElementById('btn-reset').addEventListener('click', resetCalendar);
   document.getElementById('btn-print').addEventListener('click', () => window.print());

@@ -8,7 +8,49 @@
   --font-base: 'Inter', system-ui, sans-serif;
   --font-display: 'Outfit', system-ui, sans-serif;
 
-  /* Brand palette */
+  /* Brand palette (Light) */
+  --clr-bg:        #f6f8fa;
+  --clr-surface:   #ffffff;
+  --clr-surface2:  #f0f3f6;
+  --clr-surface3:  #e1e4e8;
+  --clr-border:    rgba(0,0,0,0.1);
+  --clr-border2:   rgba(0,0,0,0.15);
+  --clr-border3:   rgba(0,0,0,0.2);
+
+  --clr-text:       #24292f;
+  --clr-text-muted: #57606a;
+  --clr-text-dim:   #6e7781;
+
+  --clr-accent:      hsl(217, 91%, 50%);
+  --clr-accent-hover: hsl(217, 91%, 40%);
+  --clr-accent-glow:  hsl(217, 91%, 50%, 0.2);
+
+  /* Table chrome */
+  --clr-th-bg:      #f0f3f6;
+  --clr-row-alt:    rgba(0,0,0,0.02);
+  --clr-row-hover:  rgba(0,0,0,0.04);
+  --clr-holiday-bg: rgba(0,0,0,0.04);
+  --clr-nea-bg:     hsl(217, 80%, 94%);
+
+  --clr-header-bg: linear-gradient(135deg, #ffffff 0%, #f6f8fa 100%);
+  --clr-instr-bg: linear-gradient(90deg, #f6f8fa 0%, #e1e4e8 100%);
+  --clr-brand-title: linear-gradient(135deg, #24292f 30%, var(--clr-accent));
+  --clr-term-header-bg: linear-gradient(90deg, #f0f3f6 0%, #ffffff 100%);
+  --clr-th-group-bg: linear-gradient(135deg, var(--clr-th-bg), #e1e4e8);
+
+  --radius-sm: 5px;
+  --radius:    10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-lg:   0 8px 32px rgba(0,0,0,0.15);
+
+  --transition: 180ms cubic-bezier(.4,0,.2,1);
+  --spring: 340ms cubic-bezier(.34,1.56,.64,1);
+}
+
+[data-theme="dark"] {
   --clr-bg:        #0d1117;
   --clr-surface:   #161b22;
   --clr-surface2:  #1c2128;
@@ -25,22 +67,20 @@
   --clr-accent-hover: hsl(217, 91%, 70%);
   --clr-accent-glow:  hsl(217, 91%, 60%, 0.28);
 
-  /* Table chrome */
   --clr-th-bg:      #1a2030;
   --clr-row-alt:    rgba(255,255,255,0.018);
+  --clr-row-hover:  rgba(255,255,255,0.028);
   --clr-holiday-bg: rgba(255,255,255,0.04);
   --clr-nea-bg:     hsl(217, 60%, 12%);
 
-  --radius-sm: 5px;
-  --radius:    10px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
+  --clr-header-bg: linear-gradient(135deg, hsl(217,50%,12%) 0%, hsl(240,40%,10%) 100%);
+  --clr-instr-bg: linear-gradient(90deg, hsl(217,50%,10%) 0%, hsl(240,40%,9%) 100%);
+  --clr-brand-title: linear-gradient(135deg, #fff 30%, var(--clr-accent));
+  --clr-term-header-bg: linear-gradient(90deg, hsla(217,50%,15%,1) 0%, hsla(240,40%,13%,1) 100%);
+  --clr-th-group-bg: linear-gradient(135deg, var(--clr-th-bg), hsl(220,30%,14%));
 
   --shadow-card: 0 2px 8px rgba(0,0,0,0.4);
   --shadow-lg:   0 8px 32px rgba(0,0,0,0.6);
-
-  --transition: 180ms cubic-bezier(.4,0,.2,1);
-  --spring: 340ms cubic-bezier(.34,1.56,.64,1);
 }
 
 /* ---------- Reset & Base ---------- */
@@ -80,7 +120,7 @@ body {
 
 /* ---------- App Header ---------- */
 .app-header {
-  background: linear-gradient(135deg, hsl(217,50%,12%) 0%, hsl(240,40%,10%) 100%);
+  background: var(--clr-header-bg);
   border-bottom: 1px solid var(--clr-border2);
   position: sticky;
   top: 0;
@@ -121,7 +161,7 @@ body {
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #fff 30%, var(--clr-accent));
+  background: var(--clr-brand-title);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -172,7 +212,7 @@ body {
 
 /* ---------- Instructions Bar ---------- */
 .instructions-bar {
-  background: linear-gradient(90deg, hsl(217,50%,10%) 0%, hsl(240,40%,9%) 100%);
+  background: var(--clr-instr-bg);
   border-bottom: 1px solid var(--clr-border);
   padding: 10px 24px;
 }
@@ -278,7 +318,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 16px 22px;
-  background: linear-gradient(90deg, hsla(217,50%,15%,1) 0%, hsla(240,40%,13%,1) 100%);
+  background: var(--clr-term-header-bg);
   border-bottom: 1px solid var(--clr-border2);
   flex-wrap: wrap;
   gap: 8px;
@@ -356,7 +396,7 @@ body {
 .cal-table thead tr th:last-child { border-right: none; }
 
 .th-day-group {
-  background: linear-gradient(135deg, var(--clr-th-bg), hsl(220,30%,14%)) !important;
+  background: var(--clr-th-group-bg) !important;
   color: var(--clr-text) !important;
   border-bottom: 2px solid var(--clr-border3) !important;
 }
@@ -375,7 +415,7 @@ body {
 }
 
 .cal-table tbody tr:hover td {
-  background-color: rgba(255,255,255,0.028);
+  background-color: var(--clr-row-hover);
 }
 
 /* ── Fixed meta cells ── */
@@ -756,4 +796,15 @@ body {
 @media (forced-colors: active) {
   .lesson-cell--filled { border: 2px solid ButtonText; }
   .btn { border: 2px solid ButtonText; }
+}
+
+/* ---------- Drag and Drop ---------- */
+.lesson-cell.dragging {
+  opacity: 0.5;
+}
+
+.lesson-cell.drag-over {
+  outline: 2px dashed var(--clr-accent) !important;
+  outline-offset: -2px;
+  background-color: var(--clr-row-hover) !important;
 }

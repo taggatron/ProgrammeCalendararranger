@@ -210,20 +210,38 @@ body {
 .btn-ghost { background: transparent; color: var(--clr-text-muted); border: 1px solid var(--clr-border); }
 .btn-ghost:hover { background: var(--clr-surface3); color: var(--clr-text); border-color: var(--clr-border2); }
 
-/* ---------- Instructions Bar ---------- */
-.instructions-bar {
-  background: var(--clr-instr-bg);
-  border-bottom: 1px solid var(--clr-border);
-  padding: 10px 24px;
+/* ---------- Header Help Popup ---------- */
+.header-help {
+  position: relative;
+  display: inline-block;
 }
 
-.instructions-inner {
-  max-width: 1600px;
-  margin: 0 auto;
+.help-popup {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 12px;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
   display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  width: max-content;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all var(--transition);
+  z-index: 100;
+}
+
+.header-help:hover .help-popup,
+.header-help:focus-within .help-popup {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .instr-chip {

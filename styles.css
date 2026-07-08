@@ -373,7 +373,13 @@ body {
 .cal-table colgroup { display: none; } /* not used – set via th */
 
 .th-week  { width: 52px; }
-.th-month { width: 44px; }
+.th-month {
+  width: 44px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  height: 80px; /* give it some height to breathe */
+  line-height: 1;
+}
 .th-date  { width: 54px; }
 /* tue1, tue2, weds, fri1, fri2 → auto share remaining space */
 

@@ -799,6 +799,7 @@ function exportCSV() {
 }
 
 // ─── Export Word ───────────────────────────────────────────
+// ─── Export Word ───────────────────────────────────────────
 function exportWord() {
   const header = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
   <head><meta charset='utf-8'><title>Programme Calendar</title>
@@ -809,69 +810,192 @@ function exportWord() {
       margin: 36.0pt 36.0pt 36.0pt 36.0pt;
     }
     div.WordSection1 { page: WordSection1; }
-    body { font-family: 'Inter', sans-serif; }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 10pt; }
-    th, td { border: 1px solid #999; padding: 6px; text-align: left; vertical-align: top; }
-    th { background-color: #1a2030; color: #fff; font-weight: bold; }
-    h2 { font-family: 'Outfit', sans-serif; font-size: 14pt; color: #333; margin-top: 20px; margin-bottom: 10px; }
-    .holiday-row td { background-color: #f0f0f0; text-align: center; font-weight: bold; color: #333; }
-    .nea-cell { background-color: #eef3ff; }
+    body { font-family: 'Arial', sans-serif; color: #000; margin: 0; text-align: center; }
+    
+    h1 { font-size: 18pt; font-weight: bold; margin-bottom: 2pt; margin-top: 0; font-family: 'Arial', sans-serif; }
+    h2 { font-size: 12pt; font-weight: bold; margin-top: 0; margin-bottom: 20pt; font-family: 'Arial', sans-serif; }
+    
+    /* Overview Table */
+    .overview-table { width: 80%; margin: 0 auto 30px auto; border-collapse: collapse; font-size: 9pt; font-family: 'Arial', sans-serif; }
+    .overview-table th, .overview-table td { border: 1px solid #000; padding: 6px; text-align: center; vertical-align: middle; }
+    
+    /* Main Calendar Table */
+    .cal-table { width: 100%; border-collapse: collapse; font-size: 9pt; font-family: 'Arial', sans-serif; }
+    .cal-table th, .cal-table td { border: 1px solid #000; padding: 6px 4px; vertical-align: middle; text-align: center; }
+    .cal-table th { font-weight: bold; background-color: #ffffff; }
+    
+    .td-week { font-weight: bold; width: 4%; background-color: #ffffff; }
+    .td-date { width: 6%; background-color: #ffffff; }
+    .td-month { 
+      font-weight: bold; 
+      width: 6%; 
+      background-color: #ffffff; 
+      writing-mode: tb-rl; 
+      mso-write: 3; 
+      white-space: nowrap;
+    }
+    
+    /* Topic Background Colors (Mirroring PDF exactly) */
+    .cell-nutrition { background-color: #ffe599; }
+    .cell-brain { background-color: #bdd7ee; } /* light blue */
+    .cell-health { background-color: #a4c2f4; } /* light blue */
+    .cell-nea { background-color: #ffe599; font-weight: bold; }
+    
+    .cell-holiday { background-color: #d9d9d9; font-weight: bold; }
+    .cell-empty { background-color: #d9d9d9; }
+    
+    .holiday-row td { background-color: #d9d9d9; font-weight: bold; }
+    .holiday-row td.td-month { background-color: #ffffff; }
   </style>
   </head><body><div class='WordSection1'>
-  <h1>AAQ Human Biology | Programme Calendar 2026-27</h1>`;
+  <h1>AAQ Human Biology Calendar 2026-2027</h1>
+  <h2>Overview</h2>
+  
+  <table class="overview-table">
+    <thead>
+      <tr>
+        <th rowspan="2" style="background-color: #ffe599;">Unit</th>
+        <th colspan="2" style="background-color: #ffe599;">Taught</th>
+        <th colspan="2" style="background-color: #ffe599;">NEA</th>
+        <th colspan="2" style="background-color: #ffe599;">Total</th>
+      </tr>
+      <tr>
+        <th style="background-color: #ffe599;">GLH</th>
+        <th style="background-color: #ffe599;">Mine</th>
+        <th style="background-color: #ffe599;">GLH</th>
+        <th style="background-color: #ffe599;">Mine</th>
+        <th style="background-color: #ffe599;">GLH</th>
+        <th style="background-color: #ffe599;">Mine</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background-color: #ffe599;">
+        <td style="text-align: left; font-weight: bold;">Nutrition & Metabolism (NEA)</td>
+        <td>35</td>
+        <td>35</td>
+        <td>15</td>
+        <td>15</td>
+        <td>50</td>
+        <td>50</td>
+      </tr>
+      <tr style="background-color: #c6e0b4;">
+        <td style="text-align: left; font-weight: bold;">The Brain (NEA)</td>
+        <td>26</td>
+        <td>22.5</td>
+        <td>24</td>
+        <td>22.5</td>
+        <td>50</td>
+        <td>45</td>
+      </tr>
+      <tr style="background-color: #b4c6e7;">
+        <td style="text-align: left; font-weight: bold;">Health & Disease (Exam)</td>
+        <td>80</td>
+        <td>52.5</td>
+        <td>0</td>
+        <td>0</td>
+        <td>80</td>
+        <td>52.5</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <table class="cal-table">
+    <thead>
+      <tr>
+        <th colspan="3" style="width: 16%;">Week/Date</th>
+        <th colspan="2" style="width: 40%;">Tuesday</th>
+        <th style="width: 12%;">Weds NEA session</th>
+        <th colspan="2" style="width: 32%;">Friday</th>
+      </tr>
+    </thead>
+    <tbody>`;
+
+  // Flatten weeks list
+  const allWeeks = [];
+  state.terms.forEach(term => {
+    allWeeks.push(...term.weeks);
+  });
+
+  // Precompute Month rowspan
+  const monthGroups = [];
+  let curMonth = null, curStart = 0;
+  allWeeks.forEach((week, i) => {
+    if (week.month !== curMonth) {
+      if (curMonth !== null) monthGroups.push({ month: curMonth, start: curStart, end: i - 1 });
+      curMonth = week.month;
+      curStart = i;
+    }
+    if (i === allWeeks.length - 1) monthGroups.push({ month: curMonth, start: curStart, end: i });
+  });
+
+  const monthRowspan = {};
+  monthGroups.forEach(g => {
+    const span = g.end - g.start + 1;
+    for (let i = g.start; i <= g.end; i++) {
+      if (i === g.start) {
+        monthRowspan[i] = { first: true, span };
+      } else {
+        monthRowspan[i] = { first: false, span: 0 };
+      }
+    }
+  });
 
   let body = '';
-  state.terms.forEach(term => {
-    body += `<h2>${term.label}</h2>`;
-    body += `<table>
-      <thead>
-        <tr>
-          <th width="5%">Week</th>
-          <th width="8%">Month</th>
-          <th width="8%">Date</th>
-          <th width="15.8%">Tuesday 1</th>
-          <th width="15.8%">Tuesday 2</th>
-          <th width="15.8%">Weds NEA</th>
-          <th width="15.8%">Friday 1</th>
-          <th width="15.8%">Friday 2</th>
-        </tr>
-      </thead>
-      <tbody>`;
+  allWeeks.forEach((week, i) => {
+    const isHoliday = week.isHoliday;
+    const trCls = isHoliday ? 'class="holiday-row"' : '';
+    body += `<tr ${trCls}>`;
 
-    term.weeks.forEach(week => {
-      if (week.isHoliday) {
-        body += `<tr class="holiday-row">
-          <td></td>
-          <td>${week.month}</td>
-          <td>${week.dateLabel}</td>
-          <td colspan="5">${week.holidayLabel}</td>
-        </tr>`;
-      } else {
-        body += `<tr>
-          <td>${week.weekNum || ''}</td>
-          <td>${week.month}</td>
-          <td>${week.dateLabel}</td>`;
-        
-        SLOT_KEYS.forEach(slot => {
-          const lesson = week[slot];
-          if (!lesson) {
-            body += `<td></td>`;
-          } else {
-            const group = groupMap[lesson.group];
-            const groupName = group ? group.label : lesson.group;
-            const cls = slot === 'weds' ? 'nea-cell' : '';
-            body += `<td class="${cls}">
-              <strong>${lesson.topic}</strong><br/>
-              <span style="font-size: 8pt; color: #666;">${groupName}</span>
-              ${lesson.notes ? `<br/><i style="font-size: 8pt;">${lesson.notes}</i>` : ''}
-            </td>`;
+    // 1. Week number cell
+    if (isHoliday) {
+      body += `<td class="td-week"></td>`;
+    } else {
+      body += `<td class="td-week">${week.weekNum || ''}</td>`;
+    }
+
+    // 2. Month cell (rowspan)
+    const mInfo = monthRowspan[i];
+    if (mInfo && mInfo.first) {
+      body += `<td class="td-month" rowspan="${mInfo.span}">${week.month}</td>`;
+    }
+
+    // 3. Date cell
+    body += `<td class="td-date">${week.dateLabel}</td>`;
+
+    // 4. Lesson cells / Holiday label
+    if (isHoliday) {
+      body += `<td colspan="5" class="cell-holiday">${week.holidayLabel}</td>`;
+    } else {
+      SLOT_KEYS.forEach(slot => {
+        const lesson = week[slot];
+        if (!lesson) {
+          body += `<td class="cell-empty"></td>`;
+        } else {
+          let cellCls = '';
+          let text = lesson.topic;
+
+          if (lesson.group === 'nutrition') {
+            cellCls = 'cell-nutrition';
+          } else if (lesson.group === 'cell') { // Brain
+            cellCls = 'cell-brain';
+          } else if (lesson.group === 'health') {
+            cellCls = 'cell-health';
+          } else if (lesson.group === 'nea') {
+            cellCls = 'cell-nea';
+          } else if (lesson.group === 'holiday') {
+            cellCls = 'cell-holiday';
+          } else if (lesson.group === 'revision') {
+            cellCls = 'cell-holiday'; // revision is grey in PDF
           }
-        });
-        body += `</tr>`;
-      }
-    });
-    body += `</tbody></table>`;
+
+          body += `<td class="${cellCls}">${text}</td>`;
+        }
+      });
+    }
+    body += `</tr>`;
   });
+
+  body += `</tbody></table>`;
 
   const footer = `</div></body></html>`;
   const html = header + body + footer;

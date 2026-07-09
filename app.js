@@ -2,6 +2,8 @@
    AAQ Human Biology Calendar Arranger – app.js
    ========================================================= */
 
+import { fetchStateFromFirestore, syncStateToFirestore, generateCalendarId } from './firebase.js';
+
 'use strict';
 
 // ─── Topic Group Definitions ───────────────────────────────
@@ -358,7 +360,25 @@ function loadTheme() {
 }
 
 // ─── Persistence ───────────────────────────────────────────
-function loadState() {
+let currentCalendarId = null;
+let saveTimeout = null;
+
+async function loadState() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const idFromUrl = urlParams.get('id');
+  
+  if (idFromUrl) {
+    currentCalendarId = idFromUrl;
+    // try to load from firebase
+    const remoteState = await fetchStateFromFirestore(currentCalendarId);
+    if (remoteState && remoteState.terms && Array.isArray(remoteState.terms)) {
+      state.terms = remoteState.terms;
+      return;
+    } else {
+      showToast('Could not load remote calendar. Loading default.', 'error');
+    }
+  }
+  
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
@@ -376,6 +396,17 @@ function saveState() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ terms: state.terms }));
   } catch (e) { /* storage full – silent fail */ }
+  
+  if (saveTimeout) clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(async () => {
+    if (!currentCalendarId) {
+      currentCalendarId = generateCalendarId();
+      const url = new URL(window.location);
+      url.searchParams.set('id', currentCalendarId);
+      window.history.replaceState({}, '', url);
+    }
+    await syncStateToFirestore(currentCalendarId, { terms: state.terms });
+  }, 1000);
 }
 
 // ─── DOM Helpers ───────────────────────────────────────────
@@ -870,9 +901,9 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ─── Init ──────────────────────────────────────────────────
-function init() {
+async function init() {
   loadTheme();
-  loadState();
+  await loadState();
   buildLegend();
   buildGroupSelect();
   renderCalendar();

@@ -120,24 +120,24 @@ const TERMS = [
       },
       {
         weekNum: 11, month: 'November', dateLabel: '30th',
-        tue1:  { id: 'l11a', topic: 'Lesson 1: Anatomy of the Brain', group: 'cell', notes: '' },
-        tue2:  { id: 'l11b', topic: 'Lesson 2: Modelling Brain Anatomy', group: 'cell', notes: '' },
+        tue1:  { id: 'l11a', topic: 'Lesson 1: Anatomy of the Brain', group: 'cell', notes: 'Introduction to the key regions of the brain, including the skull, meninges, cerebrum, cerebellum, Hypothalamic-pituitary-adrenal (HPA) axis, and the brain stem (pons, medulla, midbrain)' },
+        tue2:  { id: 'l11b', topic: 'Lesson 2: Modelling Brain Anatomy', group: 'cell', notes: 'Focus on interpreting photographic scans (CT/MRI). Students practice drawing fully annotated, low-power plan diagrams of transverse and vertical sections of the brain, and discuss the challenges the skull and meninges present during brain surgery' },
         weds:  null,
-        fri1:  { id: 'l11c', topic: 'Lesson 3: The Spinal Cord', group: 'cell', notes: '' },
-        fri2:  { id: 'l11d', topic: 'Lesson 4: Nerve Anatomy and Injury', group: 'cell', notes: '' },
+        fri1:  { id: 'l11c', topic: 'Lesson 3: The Spinal Cord', group: 'cell', notes: 'Exploration of the spinal cord\'s transverse section (vertebrae, meninges, grey/white matter, central canal). Discussion of clinical procedures like lumbar punctures, and why cervical breaks are more damaging than lumbar breaks' },
+        fri2:  { id: 'l11d', topic: 'Lesson 4: Nerve Anatomy and Injury', group: 'cell', notes: 'Microscopic study of cranial and spinal nerves (endoneurium, perineurium, epineurium, fascicles, and myelin sheath). Analysis of how repetitive sports injuries or traumatic injuries lead to a loss of motor and sensory functions' },
       },
       {
         weekNum: 12, month: 'December', dateLabel: '7th',
-        tue1:  { id: 'l12a', topic: 'Lesson 5: Action Potentials', group: 'cell', notes: '' },
-        tue2:  { id: 'l12b', topic: 'Lesson 6: Synaptic Transmission', group: 'cell', notes: '' },
+        tue1:  { id: 'l12a', topic: 'Lesson 5: Action Potentials', group: 'cell', notes: 'Detailed study of nerve impulses, covering resting and action potentials, depolarisation, polarisation, and hyperpolarisation' },
+        tue2:  { id: 'l12b', topic: 'Lesson 6: Synaptic Transmission', group: 'cell', notes: 'The route of neurotransmitters (synthesis, release, recognition, reabsorption). Students will explore how synapses link the nervous system to effectors and the specific relevance of mitochondria in the pre-synaptic knob' },
         weds:  null,
-        fri1:  { id: 'l12c', topic: 'Lesson 7: Drug Impacts on Synapses', group: 'cell', notes: '' },
-        fri2:  { id: 'l12d', topic: 'Lesson 8: Movement and Balance', group: 'cell', notes: '' },
+        fri1:  { id: 'l12c', topic: 'Lesson 7: Drug Impacts on Synapses', group: 'cell', notes: 'Investigating how different drugs alter synaptic transmission by acting as agonists, antagonists, activators, and inhibitors' },
+        fri2:  { id: 'l12d', topic: 'Lesson 8: Movement and Balance', group: 'cell', notes: 'Understanding nervous control of the body. Focus on how the motor cortex controls conscious movement, while the cerebellum and proprioceptors (pressure receptors) manage fine motor control and balance' },
       },
       {
         weekNum: 13, month: 'December', dateLabel: '14th',
-        tue1:  { id: 'l13a', topic: 'Lesson 9: Neurotransmitter Dysfunction', group: 'cell', notes: '' },
-        tue2:  { id: 'l13b', topic: 'Lesson 10: Neurodegenerative Diseases and Seizures', group: 'cell', notes: '' },
+        tue1:  { id: 'l13a', topic: 'Lesson 9: Neurotransmitter Dysfunction', group: 'cell', notes: 'Analysing how a reduction in neurotransmitter function has a direct, negative effect on overall neuron activity' },
+        tue2:  { id: 'l13b', topic: 'Lesson 10: Neurodegenerative Diseases and Seizures', group: 'cell', notes: 'Applying knowledge of neuron activity to specific conditions. Students will learn how the loss of neurons causes Parkinson’s disease and how interrupted neuron activity results in epileptic seizures' },
         weds:  { id: 'l13w', topic: 'Non-teaching day', group: 'holiday', notes: '' },
         fri1:  { id: 'l13c', topic: 'Non-teaching day', group: 'holiday', notes: '' },
         fri2:  { id: 'l13d', topic: 'Non-teaching day', group: 'holiday', notes: '' },
@@ -159,19 +159,19 @@ const TERMS = [
     weeks: [
       {
         weekNum: 14, month: 'January', dateLabel: '5th',
-        tue1:  { id: 'l14a', topic: 'Lesson 11: Communicating Brain Disorders', group: 'cell', notes: '' },
-        tue2:  { id: 'l14b', topic: 'Lesson 12: Brain Surgery and Ethics', group: 'cell', notes: '' },
+        tue1:  { id: 'l14a', topic: 'Lesson 11: Communicating Brain Disorders', group: 'cell', notes: 'Developing science communication skills. Students practice adapting complex scientific information and terminology about brain disorders for non-specialist audiences' },
+        tue2:  { id: 'l14b', topic: 'Lesson 12: Brain Surgery and Ethics', group: 'cell', notes: 'Examining invasive surgical treatments, including temporary skull removal and modern robotic surgery. Students will also debate the ethical decisions and quality of life considerations tied to brain surgery' },
         weds:  null,
-        fri1:  { id: 'l14c', topic: 'Lesson 13: Therapeutics and Drug Regimes', group: 'cell', notes: '' },
-        fri2:  { id: 'l14d', topic: 'Lesson 14: Rehabilitation and Lifestyle', group: 'cell', notes: '' },
+        fri1:  { id: 'l14c', topic: 'Lesson 13: Therapeutics and Drug Regimes', group: 'cell', notes: 'Exploring the use of therapeutic drugs to slow disease progress or reduce symptoms, such as the use of L-dopa for Parkinson\'s disease, and designing effective post-operative drug schedules' },
+        fri2:  { id: 'l14d', topic: 'Lesson 14: Rehabilitation and Lifestyle', group: 'cell', notes: 'Identifying physical and psychological treatments for brain injuries. Students evaluate lifestyle modifications like managed aerobic exercise, rest periods, and the use of medical aids for daily tasks' },
       },
       {
         weekNum: 15, month: 'January', dateLabel: '12th',
-        tue1:  { id: 'l15a', topic: 'Lesson 15: Standard Scanning Techniques', group: 'cell', notes: '' },
-        tue2:  { id: 'l15b', topic: 'Lesson 16: Specialised Scanning Technologies', group: 'cell', notes: '' },
+        tue1:  { id: 'l15a', topic: 'Lesson 15: Standard Scanning Techniques', group: 'cell', notes: 'Evaluating the features, advantages, and disadvantages of using CT, MRI, PET, X-ray, and ultrasound scans to diagnose specific brain disorders or injuries' },
+        tue2:  { id: 'l15b', topic: 'Lesson 16: Specialised Scanning Technologies', group: 'cell', notes: 'A deep dive into highly specialised imaging used in research and clinical interventions, including functional MRI (fMRI), FIB-SEM, and serial section TEM to observe neuronal circuits' },
         weds:  null,
-        fri1:  { id: 'l15c', topic: 'Lesson 17: Electroencephalogram (EEG) Fundamentals', group: 'cell', notes: '' },
-        fri2:  { id: 'l15d', topic: 'Lesson 18: Clinical Applications of EEGs & Unit Review', group: 'cell', notes: '' },
+        fri1:  { id: 'l15c', topic: 'Lesson 17: Electroencephalogram (EEG) Fundamentals', group: 'cell', notes: 'Understanding how EEGs detect electrical activity and the transmission of nerve impulses in the brain. This includes knowing why sensors are placed on specific body parts and interpreting the general appearance of readings' },
+        fri2:  { id: 'l15d', topic: 'Lesson 18: Clinical Applications of EEGs & Unit Review', group: 'cell', notes: 'Discussing how EEGs are practically used to analyse sleep patterns, monitor the "local brain clock," and track a patient\'s post-operative recovery rate' },
       },
       {
         weekNum: 16, month: 'January', dateLabel: '19th',
@@ -525,6 +525,11 @@ function buildLessonCell(lesson, termIdx, weekIdx, slot) {
   tagEl.style.setProperty('--topic-color', group.color);
   inner.appendChild(tagEl);
 
+  if (lesson.criteria) {
+    const criteriaEl = el('div', 'cell-criteria', { textContent: lesson.criteria });
+    inner.appendChild(criteriaEl);
+  }
+
   if (lesson.notes) {
     const notesEl = el('div', 'cell-notes', { textContent: lesson.notes });
     inner.appendChild(notesEl);
@@ -719,6 +724,7 @@ function openEditModal(termIdx, weekIdx, slot) {
 
   document.getElementById('edit-topic').value = lesson.topic;
   document.getElementById('edit-group').value = lesson.group;
+  document.getElementById('edit-criteria').value = lesson.criteria || '';
   document.getElementById('edit-notes').value = lesson.notes || '';
 
   const modal = document.getElementById('edit-modal');
@@ -741,6 +747,7 @@ function saveEdit() {
 
   const newTopic = document.getElementById('edit-topic').value.trim();
   const newGroup = document.getElementById('edit-group').value;
+  const newCriteria = document.getElementById('edit-criteria').value.trim();
   const newNotes = document.getElementById('edit-notes').value.trim();
 
   if (!newTopic) {
@@ -752,6 +759,7 @@ function saveEdit() {
 
   lesson.topic = newTopic;
   lesson.group = newGroup;
+  lesson.criteria = newCriteria;
   lesson.notes = newNotes;
 
   saveState();
@@ -762,11 +770,11 @@ function saveEdit() {
 
 // ─── Export CSV ────────────────────────────────────────────
 function exportCSV() {
-  const rows = [['Term', 'Week', 'Month', 'Date', 'Slot', 'Topic', 'Topic Group', 'Notes']];
+  const rows = [['Term', 'Week', 'Month', 'Date', 'Slot', 'Topic', 'Topic Group', 'Notes', 'Assessment Criteria']];
   state.terms.forEach(term => {
     term.weeks.forEach(week => {
       if (week.isHoliday) {
-        rows.push([term.label, '', week.month, week.dateLabel, 'HOLIDAY', week.holidayLabel, '', '']);
+        rows.push([term.label, '', week.month, week.dateLabel, 'HOLIDAY', week.holidayLabel, '', '', '']);
         return;
       }
       SLOT_KEYS.forEach((slot, i) => {
@@ -781,7 +789,8 @@ function exportCSV() {
           SLOT_LABELS[i],
           lesson.topic,
           group ? group.label : lesson.group,
-          lesson.notes || ''
+          lesson.notes || '',
+          lesson.criteria || ''
         ]);
       });
     });

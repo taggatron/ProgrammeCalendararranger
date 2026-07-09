@@ -604,6 +604,21 @@ body {
   line-height: 1.4;
 }
 
+/* Assessment Criteria */
+.cell-criteria {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--topic-color, var(--clr-accent));
+  background: color-mix(in srgb, var(--topic-color, var(--clr-accent)) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--topic-color, var(--clr-accent)) 20%, transparent);
+  padding: 1px 5px;
+  border-radius: 3px;
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 3px;
+  letter-spacing: 0.02em;
+}
+
 /* Edit button */
 .cell-edit-btn {
   position: absolute;

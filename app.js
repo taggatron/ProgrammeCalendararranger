@@ -8,17 +8,22 @@ import { fetchStateFromFirestore, syncStateToFirestore, generateCalendarId } fro
 
 // ─── Topic Group Definitions ───────────────────────────────
 const TOPIC_GROUPS = [
-  { id: 'nutrition',   label: 'Nutrition',              color: 'hsl(48, 95%, 58%)'  },
-  { id: 'cell',        label: 'Cell Biology',           color: 'hsl(262, 80%, 65%)' },
-  { id: 'transport',   label: 'Transport',              color: 'hsl(194, 85%, 52%)' },
-  { id: 'genetics',    label: 'Genetics & Inheritance', color: 'hsl(142, 72%, 50%)' },
-  { id: 'physiology',  label: 'Physiology',             color: 'hsl(25, 95%, 60%)'  },
-  { id: 'microbes',    label: 'Microorganisms',         color: 'hsl(330, 80%, 62%)' },
-  { id: 'ecology',     label: 'Ecology & Evolution',    color: 'hsl(80, 70%, 48%)'  },
-  { id: 'health',      label: 'Health & Disease',       color: 'hsl(175, 70%, 48%)' },
-  { id: 'revision',    label: 'Revision / Assessment',  color: 'hsl(10, 85%, 62%)'  },
-  { id: 'nea',         label: 'NEA / Coursework',       color: 'hsl(217, 91%, 60%)' },
-  { id: 'holiday',     label: 'Holiday / Break',        color: 'hsl(0, 0%, 45%)'    },
+  { id: 'nutrition',    label: 'Nutrition',                                                color: 'hsl(48, 95%, 58%)'  },
+  { id: 'cell',         label: 'Cell Biology',                                             color: 'hsl(262, 80%, 65%)' },
+  { id: 'topic-area-1', label: 'Topic Area 1: Structure & function of nervous system',     color: 'hsl(205, 85%, 62%)' },
+  { id: 'topic-area-2', label: 'Topic Area 2: Neuron communication & control',             color: 'hsl(220, 85%, 62%)' },
+  { id: 'topic-area-3', label: 'Topic Area 3: Nociception, neurotransmitters & drugs',     color: 'hsl(235, 85%, 62%)' },
+  { id: 'topic-area-4', label: 'Topic Area 4: Diagnosis & treatment of brain disorders',     color: 'hsl(250, 85%, 62%)' },
+  { id: 'topic-area-5', label: 'Topic Area 5: Monitoring & scanning the brain',            color: 'hsl(275, 85%, 62%)' },
+  { id: 'transport',    label: 'Transport',                                                color: 'hsl(194, 85%, 52%)' },
+  { id: 'genetics',     label: 'Genetics & Inheritance',                                   color: 'hsl(142, 72%, 50%)' },
+  { id: 'physiology',   label: 'Physiology',                                               color: 'hsl(25, 95%, 60%)'  },
+  { id: 'microbes',     label: 'Microorganisms',                                           color: 'hsl(330, 80%, 62%)' },
+  { id: 'ecology',      label: 'Ecology & Evolution',                                      color: 'hsl(80, 70%, 48%)'  },
+  { id: 'health',       label: 'Health & Disease',                                         color: 'hsl(175, 70%, 48%)' },
+  { id: 'revision',     label: 'Revision / Assessment',                                    color: 'hsl(10, 85%, 62%)'  },
+  { id: 'nea',          label: 'NEA / Coursework',                                         color: 'hsl(217, 91%, 60%)' },
+  { id: 'holiday',      label: 'Holiday / Break',                                          color: 'hsl(0, 0%, 45%)'    },
 ];
 
 const groupMap = {};
@@ -120,24 +125,24 @@ const TERMS = [
       },
       {
         weekNum: 11, month: 'November', dateLabel: '30th',
-        tue1:  { id: 'l11a', topic: 'Lesson 1: Anatomy of the Brain', group: 'cell', notes: 'Introduction to the key regions of the brain, including the skull, meninges, cerebrum, cerebellum, Hypothalamic-pituitary-adrenal (HPA) axis, and the brain stem (pons, medulla, midbrain)' },
-        tue2:  { id: 'l11b', topic: 'Lesson 2: Modelling Brain Anatomy', group: 'cell', notes: 'Focus on interpreting photographic scans (CT/MRI). Students practice drawing fully annotated, low-power plan diagrams of transverse and vertical sections of the brain, and discuss the challenges the skull and meninges present during brain surgery' },
+        tue1:  { id: 'l11a', topic: 'Lesson 1: Anatomy of the Brain', group: 'topic-area-1', notes: 'Introduction to the key regions of the brain, including the skull, meninges, cerebrum, cerebellum, Hypothalamic-pituitary-adrenal (HPA) axis, and the brain stem (pons, medulla, midbrain)' },
+        tue2:  { id: 'l11b', topic: 'Lesson 2: Modelling Brain Anatomy', group: 'topic-area-1', notes: 'Focus on interpreting photographic scans (CT/MRI). Students practice drawing fully annotated, low-power plan diagrams of transverse and vertical sections of the brain, and discuss the challenges the skull and meninges present during brain surgery' },
         weds:  null,
-        fri1:  { id: 'l11c', topic: 'Lesson 3: The Spinal Cord', group: 'cell', notes: 'Exploration of the spinal cord\'s transverse section (vertebrae, meninges, grey/white matter, central canal). Discussion of clinical procedures like lumbar punctures, and why cervical breaks are more damaging than lumbar breaks' },
-        fri2:  { id: 'l11d', topic: 'Lesson 4: Nerve Anatomy and Injury', group: 'cell', notes: 'Microscopic study of cranial and spinal nerves (endoneurium, perineurium, epineurium, fascicles, and myelin sheath). Analysis of how repetitive sports injuries or traumatic injuries lead to a loss of motor and sensory functions' },
+        fri1:  { id: 'l11c', topic: 'Lesson 3: The Spinal Cord', group: 'topic-area-1', notes: 'Exploration of the spinal cord\'s transverse section (vertebrae, meninges, grey/white matter, central canal). Discussion of clinical procedures like lumbar punctures, and why cervical breaks are more damaging than lumbar breaks' },
+        fri2:  { id: 'l11d', topic: 'Lesson 4: Nerve Anatomy and Injury', group: 'topic-area-1', notes: 'Microscopic study of cranial and spinal nerves (endoneurium, perineurium, epineurium, fascicles, and myelin sheath). Analysis of how repetitive sports injuries or traumatic injuries lead to a loss of motor and sensory functions' },
       },
       {
         weekNum: 12, month: 'December', dateLabel: '7th',
-        tue1:  { id: 'l12a', topic: 'Lesson 5: Action Potentials', group: 'cell', notes: 'Detailed study of nerve impulses, covering resting and action potentials, depolarisation, polarisation, and hyperpolarisation' },
-        tue2:  { id: 'l12b', topic: 'Lesson 6: Synaptic Transmission', group: 'cell', notes: 'The route of neurotransmitters (synthesis, release, recognition, reabsorption). Students will explore how synapses link the nervous system to effectors and the specific relevance of mitochondria in the pre-synaptic knob' },
+        tue1:  { id: 'l12a', topic: 'Lesson 5: Action Potentials', group: 'topic-area-2', notes: 'Detailed study of nerve impulses, covering resting and action potentials, depolarisation, polarisation, and hyperpolarisation' },
+        tue2:  { id: 'l12b', topic: 'Lesson 6: Synaptic Transmission', group: 'topic-area-2', notes: 'The route of neurotransmitters (synthesis, release, recognition, reabsorption). Students will explore how synapses link the nervous system to effectors and the specific relevance of mitochondria in the pre-synaptic knob' },
         weds:  null,
-        fri1:  { id: 'l12c', topic: 'Lesson 7: Drug Impacts on Synapses', group: 'cell', notes: 'Investigating how different drugs alter synaptic transmission by acting as agonists, antagonists, activators, and inhibitors' },
-        fri2:  { id: 'l12d', topic: 'Lesson 8: Movement and Balance', group: 'cell', notes: 'Understanding nervous control of the body. Focus on how the motor cortex controls conscious movement, while the cerebellum and proprioceptors (pressure receptors) manage fine motor control and balance' },
+        fri1:  { id: 'l12c', topic: 'Lesson 7: Drug Impacts on Synapses', group: 'topic-area-2', notes: 'Investigating how different drugs alter synaptic transmission by acting as agonists, antagonists, activators, and inhibitors' },
+        fri2:  { id: 'l12d', topic: 'Lesson 8: Movement and Balance', group: 'topic-area-2', notes: 'Understanding nervous control of the body. Focus on how the motor cortex controls conscious movement, while the cerebellum and proprioceptors (pressure receptors) manage fine motor control and balance' },
       },
       {
         weekNum: 13, month: 'December', dateLabel: '14th',
-        tue1:  { id: 'l13a', topic: 'Lesson 9: Neurotransmitter Dysfunction', group: 'cell', notes: 'Analysing how a reduction in neurotransmitter function has a direct, negative effect on overall neuron activity' },
-        tue2:  { id: 'l13b', topic: 'Lesson 10: Neurodegenerative Diseases and Seizures', group: 'cell', notes: 'Applying knowledge of neuron activity to specific conditions. Students will learn how the loss of neurons causes Parkinson’s disease and how interrupted neuron activity results in epileptic seizures' },
+        tue1:  { id: 'l13a', topic: 'Lesson 9: Neurotransmitter Dysfunction', group: 'topic-area-3', notes: 'Analysing how a reduction in neurotransmitter function has a direct, negative effect on overall neuron activity' },
+        tue2:  { id: 'l13b', topic: 'Lesson 10: Neurodegenerative Diseases and Seizures', group: 'topic-area-3', notes: 'Applying knowledge of neuron activity to specific conditions. Students will learn how the loss of neurons causes Parkinson’s disease and how interrupted neuron activity results in epileptic seizures' },
         weds:  { id: 'l13w', topic: 'Non-teaching day', group: 'holiday', notes: '' },
         fri1:  { id: 'l13c', topic: 'Non-teaching day', group: 'holiday', notes: '' },
         fri2:  { id: 'l13d', topic: 'Non-teaching day', group: 'holiday', notes: '' },
@@ -159,19 +164,19 @@ const TERMS = [
     weeks: [
       {
         weekNum: 14, month: 'January', dateLabel: '5th',
-        tue1:  { id: 'l14a', topic: 'Lesson 11: Communicating Brain Disorders', group: 'cell', notes: 'Developing science communication skills. Students practice adapting complex scientific information and terminology about brain disorders for non-specialist audiences' },
-        tue2:  { id: 'l14b', topic: 'Lesson 12: Brain Surgery and Ethics', group: 'cell', notes: 'Examining invasive surgical treatments, including temporary skull removal and modern robotic surgery. Students will also debate the ethical decisions and quality of life considerations tied to brain surgery' },
+        tue1:  { id: 'l14a', topic: 'Lesson 11: Communicating Brain Disorders', group: 'topic-area-3', notes: 'Developing science communication skills. Students practice adapting complex scientific information and terminology about brain disorders for non-specialist audiences' },
+        tue2:  { id: 'l14b', topic: 'Lesson 12: Brain Surgery and Ethics', group: 'topic-area-4', notes: 'Examining invasive surgical treatments, including temporary skull removal and modern robotic surgery. Students will also debate the ethical decisions and quality of life considerations tied to brain surgery' },
         weds:  null,
-        fri1:  { id: 'l14c', topic: 'Lesson 13: Therapeutics and Drug Regimes', group: 'cell', notes: 'Exploring the use of therapeutic drugs to slow disease progress or reduce symptoms, such as the use of L-dopa for Parkinson\'s disease, and designing effective post-operative drug schedules' },
-        fri2:  { id: 'l14d', topic: 'Lesson 14: Rehabilitation and Lifestyle', group: 'cell', notes: 'Identifying physical and psychological treatments for brain injuries. Students evaluate lifestyle modifications like managed aerobic exercise, rest periods, and the use of medical aids for daily tasks' },
+        fri1:  { id: 'l14c', topic: 'Lesson 13: Therapeutics and Drug Regimes', group: 'topic-area-4', notes: 'Exploring the use of therapeutic drugs to slow disease progress or reduce symptoms, such as the use of L-dopa for Parkinson\'s disease, and designing effective post-operative drug schedules' },
+        fri2:  { id: 'l14d', topic: 'Lesson 14: Rehabilitation and Lifestyle', group: 'topic-area-4', notes: 'Identifying physical and psychological treatments for brain injuries. Students evaluate lifestyle modifications like managed aerobic exercise, rest periods, and the use of medical aids for daily tasks' },
       },
       {
         weekNum: 15, month: 'January', dateLabel: '12th',
-        tue1:  { id: 'l15a', topic: 'Lesson 15: Standard Scanning Techniques', group: 'cell', notes: 'Evaluating the features, advantages, and disadvantages of using CT, MRI, PET, X-ray, and ultrasound scans to diagnose specific brain disorders or injuries' },
-        tue2:  { id: 'l15b', topic: 'Lesson 16: Specialised Scanning Technologies', group: 'cell', notes: 'A deep dive into highly specialised imaging used in research and clinical interventions, including functional MRI (fMRI), FIB-SEM, and serial section TEM to observe neuronal circuits' },
+        tue1:  { id: 'l15a', topic: 'Lesson 15: Standard Scanning Techniques', group: 'topic-area-5', notes: 'Evaluating the features, advantages, and disadvantages of using CT, MRI, PET, X-ray, and ultrasound scans to diagnose specific brain disorders or injuries' },
+        tue2:  { id: 'l15b', topic: 'Lesson 16: Specialised Scanning Technologies', group: 'topic-area-5', notes: 'A deep dive into highly specialised imaging used in research and clinical interventions, including functional MRI (fMRI), FIB-SEM, and serial section TEM to observe neuronal circuits' },
         weds:  null,
-        fri1:  { id: 'l15c', topic: 'Lesson 17: Electroencephalogram (EEG) Fundamentals', group: 'cell', notes: 'Understanding how EEGs detect electrical activity and the transmission of nerve impulses in the brain. This includes knowing why sensors are placed on specific body parts and interpreting the general appearance of readings' },
-        fri2:  { id: 'l15d', topic: 'Lesson 18: Clinical Applications of EEGs & Unit Review', group: 'cell', notes: 'Discussing how EEGs are practically used to analyse sleep patterns, monitor the "local brain clock," and track a patient\'s post-operative recovery rate' },
+        fri1:  { id: 'l15c', topic: 'Lesson 17: Electroencephalogram (EEG) Fundamentals', group: 'topic-area-5', notes: 'Understanding how EEGs detect electrical activity and the transmission of nerve impulses in the brain. This includes knowing why sensors are placed on specific body parts and interpreting the general appearance of readings' },
+        fri2:  { id: 'l15d', topic: 'Lesson 18: Clinical Applications of EEGs & Unit Review', group: 'topic-area-5', notes: 'Discussing how EEGs are practically used to analyse sleep patterns, monitor the "local brain clock," and track a patient\'s post-operative recovery rate' },
       },
       {
         weekNum: 16, month: 'January', dateLabel: '19th',
@@ -985,7 +990,7 @@ function exportWord() {
 
           if (lesson.group === 'nutrition') {
             cellCls = 'cell-nutrition';
-          } else if (lesson.group === 'cell') { // Brain
+          } else if (lesson.group === 'cell' || lesson.group.startsWith('topic-area-')) { // Brain
             cellCls = 'cell-brain';
           } else if (lesson.group === 'health') {
             cellCls = 'cell-health';

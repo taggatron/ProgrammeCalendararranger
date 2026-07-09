@@ -5,12 +5,12 @@ import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/1
 // TODO: Replace with your actual Firebase config object
 // You can find this in your Firebase Console under Project Settings > General > Your apps
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyA1KCz5UdkBMRf8rY68vGR9BqCuzc68SSM",
+  authDomain: "aaq-bio-arranger-2627.firebaseapp.com",
+  projectId: "aaq-bio-arranger-2627",
+  storageBucket: "aaq-bio-arranger-2627.firebasestorage.app",
+  messagingSenderId: "79390374495",
+  appId: "1:79390374495:web:f769ea498e883b9f0db9ea"
 };
 
 let app, db, auth;

@@ -1,6 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { initializeApp } from "firebase/app";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import { getAuth, signInAnonymously } from "firebase/auth";
 
 // TODO: Replace with your actual Firebase config object
 // You can find this in your Firebase Console under Project Settings > General > Your apps
